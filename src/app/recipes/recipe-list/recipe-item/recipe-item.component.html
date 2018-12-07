@@ -1,8 +1,8 @@
-<div class="card" style="width: 18rem;">
-<img class="card-img-top" src={{currentRicetta.imagePath}} alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{currentRicetta.name}}</h5>
-      <p class="card-text">{{currentRicetta.description}}</p>
-      <a href="#" class="btn btn-primary">vedi</a>
-    </div>
+<li class="item-recipe row" (click)="onSelectedItem()">
+  <div class="col">
+    <img class="img-thumbnail" src="{{currentRicetta.imagePath}}" />
   </div>
+  <div class="col-9">
+    <h5 class="card-title">{{ currentRicetta.name }}</h5>
+  </div>
+</li>

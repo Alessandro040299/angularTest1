@@ -1,5 +1,6 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {Recipe} from "./recipe.model";
+import { RecipesService } from 'src/app/recipes.service';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
@@ -7,20 +8,25 @@ import {Recipe} from "./recipe.model";
 })
 export class RecipeListComponent implements OnInit {
 
-  recipes: Recipe[] = [
-    new Recipe(
-      "amatriciana",
-      "guanciale e sugo",
-      "http://finedininglovers-it.cdn.crosscast-system.com/BlogPost/l_3494_Amatriciana.jpg"),
+  @Output() selectedRecipe = new EventEmitter<Recipe>();
+recipes: Recipe[] = [];
 
-      new Recipe(
-        "carbonara",
-        "guanciale e uovo",
-        "https://www.gustissimo.it/articoli/ricette/pasta-salumi/spaghetti-alla-carbonara.jpg")
+  onSelectedList(recipe) {
+    console.log("elemento lista selezionato", recipe);
+    this.selectedRecipe.emit(recipe);
+  }
+  constructor(private recipesService: RecipesService) {
+recipesService.newRecipes.subscribe(
+ricetteAggiornate => {
+console.log(ricetteAggiornate);
+this.recipes = ricetteAggiornate;
+},
+function(error) {
+console.error(error);
+}
 
-  ];
-
-  constructor() { }
+);
+}
 
   ngOnInit() {
   }
